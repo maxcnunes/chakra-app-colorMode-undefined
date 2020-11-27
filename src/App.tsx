@@ -7,13 +7,28 @@ import {
   VStack,
   Code,
   Grid,
-  theme,
+  // theme
 } from "@chakra-ui/react"
 import { ColorModeSwitcher } from "./ColorModeSwitcher"
 import { Logo } from "./Logo"
+ 
+import { extendTheme } from '@chakra-ui/react';
+
+const customTheme = extendTheme({
+  styles: {
+    global: (props) => ({
+      body: {
+        bg: (props: any) => {
+          console.log('***theme colorMode', props.colorMode);
+          return props.colorMode === 'dark' ? 'red.300' : 'yellow.300';
+        },
+      },
+    }),
+  },
+});
 
 export const App = () => (
-  <ChakraProvider theme={theme}>
+  <ChakraProvider theme={customTheme}>
     <Box textAlign="center" fontSize="xl">
       <Grid minH="100vh" p={3}>
         <ColorModeSwitcher justifySelf="flex-end" />
